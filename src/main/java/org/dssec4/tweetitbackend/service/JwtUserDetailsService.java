@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import org.dssec4.tweetitbackend.repository.UserRepository;
-import org.dssec4.tweetitbackend.model.User;
+import org.dssec4.tweetitbackend.entity.User;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {

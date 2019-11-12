@@ -1,4 +1,4 @@
-package org.dssec4.tweetitbackend.model;
+package org.dssec4.tweetitbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

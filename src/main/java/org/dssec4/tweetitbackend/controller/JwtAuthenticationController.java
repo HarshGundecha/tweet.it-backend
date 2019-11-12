@@ -1,6 +1,6 @@
 package org.dssec4.tweetitbackend.controller;
 
-import org.dssec4.tweetitbackend.model.User;
+import org.dssec4.tweetitbackend.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
