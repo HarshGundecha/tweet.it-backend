@@ -1,8 +1,6 @@
 package org.dssec4.tweetitbackend.controller;
 
-import java.util.Objects;
-
-import org.dssec4.tweetitbackend.model.DAOUser;
+import org.dssec4.tweetitbackend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -49,7 +47,7 @@ public class JwtAuthenticationController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<?> saveUser(@RequestBody DAOUser user) throws Exception {
+	public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 
