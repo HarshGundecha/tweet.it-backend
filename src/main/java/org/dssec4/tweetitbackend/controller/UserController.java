@@ -13,13 +13,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping(value = "/register")
+    @PostMapping("/register")
     public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {
         return ResponseEntity.ok(userService.save(user));
     }
 
-    @GetMapping(value="/user")
+    @GetMapping("/profile")
     public ResponseEntity<?> getUsers() {
         return ResponseEntity.ok(userService.getUserFromRequest());
     }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<?> getUser(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUser(id));
+    }
+
 }
