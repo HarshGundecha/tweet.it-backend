@@ -11,6 +11,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -39,4 +40,9 @@ public class UserService {
         String email = jwtTokenUtil.getUsernameFromToken(token);
         return userRepository.findByEmail(email);
     }
+
+    public Optional<User> getUser(Long id) {
+        return userRepository.findById(id);
+    }
+
 }

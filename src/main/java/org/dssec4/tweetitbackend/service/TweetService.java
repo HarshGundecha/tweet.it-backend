@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TweetService {
@@ -20,4 +21,7 @@ public class TweetService {
         return tweetRepository.findAll();
     }
 
+    public Optional<Tweet> getTweet(Long id){
+        return tweetRepository.findById(id);
+    }
 }
