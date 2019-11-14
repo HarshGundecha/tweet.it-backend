@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.dssec4.tweetitbackend.entity.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Long> {
 	
 	User findByUsername(String username);
 	User findByEmail(String email);
