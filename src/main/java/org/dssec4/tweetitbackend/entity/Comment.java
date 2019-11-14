@@ -21,12 +21,10 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "username", nullable = false)
+    @ManyToOne
     private User user;
 
     @ManyToOne
-    @JoinColumn(name  = "id", nullable = false)
     private Tweet tweet;
 
     @Column(nullable=false)

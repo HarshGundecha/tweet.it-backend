@@ -23,21 +23,30 @@ public class User {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	//@UniqueElements
 	@Column(nullable=false, unique = true)
 	private String username;
+
 	@Column(nullable=false)
 	private String name;
+
 	@Column(nullable=false, unique = true)
 	private String email;
+
 	private String profilePic;
+
 	private String coverPic;
+
 	private String bio;
+
 	//@JsonIgnore
 	@CreationTimestamp
 	private Date createdAt;
+
 	@UpdateTimestamp
 	private Date updatedAt;
+
 	@Column(nullable=false)
 	private String password;
 }

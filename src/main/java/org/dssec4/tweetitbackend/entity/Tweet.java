@@ -1,6 +1,8 @@
 package org.dssec4.tweetitbackend.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -10,23 +12,25 @@ import java.util.List;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Tweet {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", nullable = false)
+    @ManyToOne
     private User user;
 
-    @OneToMany(mappedBy = "tweet" ,cascade = CascadeType.REMOVE)
-    @JoinColumn
-    private Comment comment;
+//    @OneToMany
+//    private List<Comment> comment;
 
     @Column(nullable=false)
     private String tweetText;
 
+    @ElementCollection
     private List<String> image;
 
+    @ElementCollection
     private List<String> video;
 
     @CreationTimestamp
