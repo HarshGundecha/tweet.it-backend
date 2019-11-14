@@ -20,6 +20,6 @@ public class UserController {
 
     @GetMapping(value="/user")
     public ResponseEntity<?> getUsers() {
-        return ResponseEntity.ok(userService.getUsers());
+        return ResponseEntity.ok(userService.getUserFromRequest());
     }
 }
