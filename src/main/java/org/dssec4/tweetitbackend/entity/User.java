@@ -22,7 +22,7 @@ import java.util.Date;
 public class User {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	//@UniqueElements
 	@Column(nullable=false, unique = true)
 	private String username;
