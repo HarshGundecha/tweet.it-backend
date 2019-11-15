@@ -31,13 +31,7 @@ public class UserController {
     public ResponseEntity<?> getProfile() {
         User user = userService.getUserFromRequest();
         List<Tweet> tist = tweetService.getTweetsFromUser(user);
-        Object[] obj = new Object[2];
-        obj[0] = user;
-        obj[1] = tist;
-        Map<String, Object> mymap = new HashMap();
-        mymap.put("user",user);
-        mymap.put("tweet",tist);
-        return ResponseEntity.ok(mymap);
+        return ResponseEntity.ok(Map.of("user",user,"tweet",tist));
     }
 
     @GetMapping("/user/{id}")
