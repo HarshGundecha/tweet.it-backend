@@ -1,5 +1,6 @@
 package org.dssec4.tweetitbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,8 +22,9 @@ public class Tweet {
     @ManyToOne
     private User user;
 
-//    @OneToMany
-//    private List<Comment> comment;
+    @OneToMany(mappedBy = "tweet")
+    @JsonManagedReference
+    private List<Comment> comment;
 
     @Column(nullable=false)
     private String tweetText;

@@ -1,5 +1,7 @@
 package org.dssec4.tweetitbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +14,6 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "comment")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment {
@@ -25,6 +26,8 @@ public class Comment {
     private User user;
 
     @ManyToOne
+    @JoinColumn(name="tweet_fk")
+    @JsonBackReference
     private Tweet tweet;
 
     @Column(nullable=false)
