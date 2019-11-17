@@ -40,7 +40,9 @@ public class UserService {
         String email = jwtTokenUtil.getUsernameFromToken(token);
         return userRepository.findByEmail(email);
     }
-
+    public User getUserFromEmail(String username) {
+        return userRepository.findByEmail(username);
+    }
     public Optional<User> getUser(Long id) {
         return userRepository.findById(id);
     }

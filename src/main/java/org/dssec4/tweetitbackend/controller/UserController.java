@@ -1,11 +1,15 @@
 package org.dssec4.tweetitbackend.controller;
 
+import org.dssec4.tweetitbackend.config.JwtTokenUtil;
 import org.dssec4.tweetitbackend.entity.Tweet;
 import org.dssec4.tweetitbackend.entity.User;
+import org.dssec4.tweetitbackend.model.JwtResponse;
+import org.dssec4.tweetitbackend.service.JwtUserDetailsService;
 import org.dssec4.tweetitbackend.service.TweetService;
 import org.dssec4.tweetitbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -22,9 +26,22 @@ public class UserController {
     @Autowired
     private TweetService tweetService;
 
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private JwtUserDetailsService userDetailsService;
+
     @PostMapping("/register")
     public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {
-        return ResponseEntity.ok(userService.save(user));
+//        return ResponseEntity.ok(userService.save(user));
+        userService.save(user);
+        final UserDetails userDetails = userDetailsService
+                .loadUserByUsername(user.getEmail());
+
+        final String token = jwtTokenUtil.generateToken(userDetails);
+//		System.out.println(userDetails.getUsername()+" is my name");
+        return ResponseEntity.ok(Map.of("token",new JwtResponse(token).getToken(),"user",user));
     }
 
     @GetMapping("/profile")

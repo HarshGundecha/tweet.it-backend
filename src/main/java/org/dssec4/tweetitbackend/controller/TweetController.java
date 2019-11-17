@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/tweet")
+@CrossOrigin
 public class TweetController {
     @Autowired
     private TweetService tweetService;
@@ -17,8 +21,10 @@ public class TweetController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<Tweet> addTweet(@RequestBody Tweet tweet){
-        return ResponseEntity.ok(tweetService.addTweet(tweet));
+    public ResponseEntity<?> addTweet(@RequestBody Tweet tweet){
+        tweetService.addTweet(tweet);
+        List<Tweet> tist = tweetService.getTweetsFromUser(userService.getUserFromRequest());
+        return ResponseEntity.ok(Map.of("tweet",tist));
     }
 
     @GetMapping

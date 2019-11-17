@@ -21,6 +21,8 @@ import org.dssec4.tweetitbackend.config.JwtTokenUtil;
 import org.dssec4.tweetitbackend.model.JwtRequest;
 import org.dssec4.tweetitbackend.model.JwtResponse;
 
+import java.util.Map;
+
 @RestController
 @CrossOrigin
 public class JwtAuthenticationController {
@@ -46,8 +48,9 @@ public class JwtAuthenticationController {
 				.loadUserByUsername(authenticationRequest.getEmail());
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
-
-		return ResponseEntity.ok(new JwtResponse(token));
+//		System.out.println(userDetails.getUsername()+" is my name");
+        User user = userService.getUserFromEmail(userDetails.getUsername());
+        return ResponseEntity.ok(Map.of("token",new JwtResponse(token).getToken(),"id",user.getId()));
 	}
 
 	private void authenticate(String username, String password) throws Exception {
