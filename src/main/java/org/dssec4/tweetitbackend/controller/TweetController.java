@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,9 @@ public class TweetController {
     public ResponseEntity<?> addTweet(@RequestBody Tweet tweet){
         tweetService.addTweet(tweet);
         List<Tweet> tist = tweetService.getTweetsFromUser(userService.getUserFromRequest());
-        return ResponseEntity.ok(Map.of("tweet",tist));
+        Map<String, Object> mymap = new HashMap();
+        mymap.put("tweet",tist);
+        return ResponseEntity.ok(mymap);
     }
 
     @GetMapping

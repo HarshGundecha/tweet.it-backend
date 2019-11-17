@@ -41,14 +41,19 @@ public class UserController {
 
         final String token = jwtTokenUtil.generateToken(userDetails);
 //		System.out.println(userDetails.getUsername()+" is my name");
-        return ResponseEntity.ok(Map.of("token",new JwtResponse(token).getToken(),"user",user));
+        Map<String, Object> mymap = new HashMap();
+        mymap.put("token",new JwtResponse(token).getToken());
+        mymap.put("user",user);
+        return ResponseEntity.ok(mymap);
     }
 
     @GetMapping("/profile")
     public ResponseEntity<?> getProfile() {
         User user = userService.getUserFromRequest();
         List<Tweet> tist = tweetService.getTweetsFromUser(user);
-        return ResponseEntity.ok(Map.of("user",user,"tweet",tist));
+        Map<String, Object> mymap = new HashMap();
+        mymap.put("tweet",tist);
+        return ResponseEntity.ok(mymap);
     }
 
     @GetMapping("/user/{id}")

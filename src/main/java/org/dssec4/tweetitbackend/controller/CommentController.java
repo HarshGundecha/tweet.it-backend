@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +33,9 @@ public class CommentController {
     public ResponseEntity<?> addComment(@RequestBody Comment comment) {
         commentService.addComment(comment);
         List<Tweet> tist = tweetService.getTweetsFromUser(userService.getUserFromRequest());
-        return ResponseEntity.ok(Map.of("tweet",tist));
+        Map<String, Object> mymap = new HashMap();
+        mymap.put("tweet",tist);
+        return ResponseEntity.ok(mymap);
     }
 
     @GetMapping

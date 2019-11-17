@@ -21,6 +21,7 @@ import org.dssec4.tweetitbackend.config.JwtTokenUtil;
 import org.dssec4.tweetitbackend.model.JwtRequest;
 import org.dssec4.tweetitbackend.model.JwtResponse;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -50,7 +51,10 @@ public class JwtAuthenticationController {
 		final String token = jwtTokenUtil.generateToken(userDetails);
 //		System.out.println(userDetails.getUsername()+" is my name");
         User user = userService.getUserFromEmail(userDetails.getUsername());
-        return ResponseEntity.ok(Map.of("token",new JwtResponse(token).getToken(),"id",user.getId()));
+        Map<String, Object> mymap = new HashMap();
+        mymap.put("token",new JwtResponse(token).getToken());
+        mymap.put("id",user.getId());
+        return ResponseEntity.ok(mymap);
 	}
 
 	private void authenticate(String username, String password) throws Exception {
