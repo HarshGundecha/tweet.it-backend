@@ -53,7 +53,7 @@ public class UserController {
         List<Tweet> tist = tweetService.getTweetsFromUser(user);
         Map<String, Object> mymap = new HashMap();
         mymap.put("tweet",tist);
-        mymap.put("suer",user);
+        mymap.put("user",user);
         return ResponseEntity.ok(mymap);
     }
 
