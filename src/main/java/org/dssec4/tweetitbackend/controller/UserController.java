@@ -57,9 +57,15 @@ public class UserController {
         return ResponseEntity.ok(mymap);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<?> getUser(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUser(id));
     }
+
+    @GetMapping("/users/")
+    public ResponseEntity<?> getUsers(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUsers());
+    }
+
 
 }

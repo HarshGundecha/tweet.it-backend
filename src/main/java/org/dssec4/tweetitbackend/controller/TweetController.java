@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/tweet")
+@RequestMapping("/tweets")
 @CrossOrigin
 public class TweetController {
     @Autowired

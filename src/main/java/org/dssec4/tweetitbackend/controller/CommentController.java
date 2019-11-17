@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-@RequestMapping("/comment")
+@RequestMapping("/comments")
 @CrossOrigin
 public class CommentController {
     @Autowired
