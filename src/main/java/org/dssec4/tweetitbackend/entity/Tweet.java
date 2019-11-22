@@ -8,8 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Entity
@@ -24,16 +23,19 @@ public class Tweet {
 
     @OneToMany(mappedBy = "tweet")
     @JsonManagedReference
-    private List<Comment> comment;
+    private List<Comment> comment = new ArrayList();
 
     @Column(nullable=false)
     private String tweetText;
 
     @ElementCollection
-    private List<String> image;
+    private List<String> image = new ArrayList();
 
     @ElementCollection
-    private List<String> video;
+    private List<String> video = new ArrayList();
+
+    @ManyToMany
+    private Set<User> likes/* = new HashSet()*/;
 
     @CreationTimestamp
     private Date createdAt;

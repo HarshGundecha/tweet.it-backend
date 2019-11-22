@@ -1,11 +1,14 @@
 package org.dssec4.tweetitbackend.controller;
 
 import org.dssec4.tweetitbackend.config.JwtTokenUtil;
+import org.dssec4.tweetitbackend.entity.Follower;
 import org.dssec4.tweetitbackend.entity.Tweet;
 import org.dssec4.tweetitbackend.entity.User;
 import org.dssec4.tweetitbackend.model.JwtResponse;
+import org.dssec4.tweetitbackend.service.FollowerService;
 import org.dssec4.tweetitbackend.service.JwtUserDetailsService;
 import org.dssec4.tweetitbackend.service.TweetService;
+//import org.dssec4.tweetitbackend.service.UserFollowService;
 import org.dssec4.tweetitbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +20,15 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/users")
 @CrossOrigin
 public class UserController {
 
     @Autowired
     private UserService userService;
+
+//    @Autowired
+//    private UserFollowService userFollowService;
 
     @Autowired
     private TweetService tweetService;
@@ -31,6 +38,9 @@ public class UserController {
 
     @Autowired
     private JwtUserDetailsService userDetailsService;
+
+    @Autowired
+    private FollowerService followerService;
 
     @PostMapping("/register")
     public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {
@@ -47,9 +57,54 @@ public class UserController {
         return ResponseEntity.ok(mymap);
     }
 
-    @GetMapping("/profile")
-    public ResponseEntity<?> getProfile() {
+//    @GetMapping("/profile")
+//    public ResponseEntity<?> getProfile() {
+//        User user = userService.getUserFromRequest();
+//        List<Tweet> tist = tweetService.getTweetsFromUser(user);
+//        Map<String, Object> mymap = new HashMap();
+//        mymap.put("tweet",tist);
+//        mymap.put("user",user);
+//        return ResponseEntity.ok(mymap);
+//    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUser(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUser(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getUsers() {
+        Map<String, Object> mymap = new HashMap();
+        mymap.put("users",userService.getUsers());
+        return ResponseEntity.ok(mymap);
+    }
+
+    @PutMapping
+    public User putUser(@RequestBody User updatedUser){
         User user = userService.getUserFromRequest();
+        if(user.getId()==updatedUser.getId())
+        {
+            user.setName(updatedUser.getName());
+            user.setBio(updatedUser.getBio());
+            return userService.save(user);
+        }
+        else
+            return updatedUser;
+
+    }
+
+    @GetMapping("/search/{name}")
+    public ResponseEntity<?> searchUser(@PathVariable String name) {
+        Map<String, Object> mymap = new HashMap<>();
+        mymap.put("searchUsers",userService.getUserBySimilarName(name));
+        return ResponseEntity.ok(mymap);
+    }
+
+    @GetMapping("/profile/{username}")
+    public ResponseEntity<?> getUserFromUsername(@PathVariable String username) {
+        System.out.println(username);
+        User user = userService.getUserFromUsername(username);
+        System.out.println(user);
         List<Tweet> tist = tweetService.getTweetsFromUser(user);
         Map<String, Object> mymap = new HashMap();
         mymap.put("tweet",tist);
@@ -57,15 +112,18 @@ public class UserController {
         return ResponseEntity.ok(mymap);
     }
 
-    @GetMapping("/users/{id}")
-    public ResponseEntity<?> getUser(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.getUser(id));
+    @PutMapping("togglefollow/{id}")
+    public Follower followUser(@PathVariable long id){
+        return followerService.toggleFollowUser(userService.getUserFromRequest(), id);
     }
 
-    @GetMapping("/users/")
-    public ResponseEntity<?> getUsers(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.getUsers());
+    @GetMapping("/following")
+    public List<User> getFollowing(){
+        return userService.getUsersByUsersId(followerService.getFollowingIdsByUserId(userService.getUserFromRequest().getId()));
     }
 
-
+    @GetMapping("/followers")
+    public List<User> getFollowers(){
+        return userService.getUsersByUsersId(followerService.getFollowersIdsByUserId(userService.getUserFromRequest().getId()));
+    }
 }

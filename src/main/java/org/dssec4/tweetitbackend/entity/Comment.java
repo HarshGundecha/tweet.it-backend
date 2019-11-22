@@ -10,7 +10,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -33,6 +35,9 @@ public class Comment {
 
     @Column(nullable=false)
     private String commentText;
+
+    @ManyToMany
+    private Set<User> likes/* = new HashSet()*/;
 
     @CreationTimestamp
     private Date createdAt;

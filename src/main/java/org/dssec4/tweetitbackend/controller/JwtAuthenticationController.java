@@ -40,7 +40,7 @@ public class JwtAuthenticationController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/users/login", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
 		authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
@@ -53,7 +53,7 @@ public class JwtAuthenticationController {
         User user = userService.getUserFromEmail(userDetails.getUsername());
         Map<String, Object> mymap = new HashMap();
         mymap.put("token",new JwtResponse(token).getToken());
-        mymap.put("id",user.getId());
+        mymap.put("user",user);
         return ResponseEntity.ok(mymap);
 	}
 

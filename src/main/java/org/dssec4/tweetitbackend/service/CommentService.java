@@ -13,6 +13,9 @@ public class CommentService {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired
+    private UserService userService;
+
     public Comment addComment(Comment comment) {
         return commentRepository.save(comment);
     }
@@ -25,4 +28,10 @@ public class CommentService {
         return commentRepository.findById(id);
     }
 
+    public boolean deleteComment(Long id) {
+        boolean flag =  commentRepository.findById(id).get().getUser()==userService.getUserFromRequest();
+        if(flag)
+            commentRepository.deleteById(id);
+        return flag;
+    }
 }
