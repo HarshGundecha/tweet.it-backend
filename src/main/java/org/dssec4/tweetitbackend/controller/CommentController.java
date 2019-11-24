@@ -58,7 +58,7 @@ public class CommentController {
             comment.getLikes().remove(user);
         else
             comment.getLikes().add(user);
-        Tweet tweet = tweetService.getTweet(comment.getTweet().getId()).get();
+        Tweet tweet = tweetService.getTweet(commentService.addComment(comment).getTweet().getId()).get();
 
         return ResponseEntity.ok(tweet);
     }

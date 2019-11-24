@@ -96,7 +96,8 @@ public class UserController {
     @GetMapping("/search/{name}")
     public ResponseEntity<?> searchUser(@PathVariable String name) {
         Map<String, Object> mymap = new HashMap<>();
-        mymap.put("searchUsers",userService.getUserBySimilarName(name));
+        List<User> users = userService.getUserBySimilarName(name);
+        mymap.put("users",users.size()>0?users:false);
         return ResponseEntity.ok(mymap);
     }
 
@@ -113,8 +114,9 @@ public class UserController {
     }
 
     @PutMapping("togglefollow/{id}")
-    public Follower followUser(@PathVariable long id){
-        return followerService.toggleFollowUser(userService.getUserFromRequest(), id);
+    public User followUser(@PathVariable long id){
+        followerService.toggleFollowUser(userService.getUserFromRequest(), id);
+        return userService.getUser(id);
     }
 
     @GetMapping("/following")

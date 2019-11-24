@@ -30,7 +30,7 @@ public class TweetService {
     }
 
     public List<Tweet> getTweetsFromUser(User user){
-        return tweetRepository.findByUser(user);
+        return tweetRepository.findByUserOrderByCreatedAt(user);
     }
 
     public boolean deleteTweet(Long id){
@@ -44,7 +44,7 @@ public class TweetService {
     }
 
     public List<Tweet> getTweetsFromUserIds(List<User> users){
-        return tweetRepository.findAllByUser(users);
+        return tweetRepository.findAllByUserOrderByCreatedAt(users);
     }
 
 }
