@@ -1,5 +1,5 @@
 # tweet.it-backend | WIP
-Java SpringBoot REST API backend
+Java SpringBoot API backend
 
 # Demo 
 - https://harshgundecha.netlify.com/register
@@ -11,7 +11,7 @@ Java SpringBoot REST API backend
 - Hibernate 
 - Lombok
 
-# Functionality 
+# Functionality (API)
 - login/register/logout
 - post/like/delete tweets 
 - post/like/delete comments 
